@@ -1,0 +1,110 @@
+********************************************************************************
+*	Nic Durish: (#0757227)(ndurish@uoguelph.ca)      Mar 20, 2015    		   *
+*	CIS 4820 - Game Programming          			 Assignment 4    		   *
+********************************************************************************
+
+I. DESCRIPTION
+II. EXTRA FEATURES
+III. COMPILATION & EXECUTION
+IV. KNOWN LIMITATIONS & FUTURE EXTENSIONS
+
+******************
+* I. DESCRIPTION *
+******************
+This package contains the necessary code to run the current version of CIS*4820 Tank-Game. To my knowledge it contains all of the necessary requirements as well as some extra features. As I was building my game, I hoped to allow it to be easily manipulated. I therefore added some global variable that control the world parameters. These variables can be accessed at the bottom of the a1 header file in the 'parameter control panel' (PCPanel). 
+
+* CHANGES FROM REQUIREMENTS *
+There were a couple of things I changed from the requirements which I believe provided better gameplay (if this is a problem, I will happily implement any of the missing mechanics), I have outlined these changes below.
+
+	-PRESS 'e' TO DIGG!
+
+	-HOLD 'SHIFT' AND PRESS 'A' & 'D' TO CHANGE VEL OR 'W' & 'S' TO CHANGE ANG.
+
+	-Bots each have their own bullet, so instead of waiting 1 second they fire once their missile is free.
+
+	-Bot Dodges only if he sees the player and the bullet is within 20 meters
+
+	-Because I included so many more enemies, I reduced their sight range by 10 (to 40). This can easily be changed in the PCPanel
+
+***********************************************
+* II. EXTRA FEATURES (Requirement Extensions) *
+***********************************************
+
+KEYBOARD VEL/ANG CHANGE:
+	- I couldn't stand the right click to change, so hold 'shift' and press 'A' or 'D' to change Velocity and 'W' or 'S' to change angle
+MULTIPLE BOTS:
+	- There are five bots implemented by default (this is due to the native settings of 10 missiles), you can lower this number in the PCPanel.
+DIGGING (slight bugs): 
+	- The player is able to dig out cubes directly beside, above or below him if they press down the ‘e’ key. Be careful not to dig yourself into a hole!
+ON-SCREEN DASHBOARD:
+	- Beneath the smaller minimap lies the players on-screen dash. This shows the players current ammunition as-well as their velocity, angle and death count. 
+COORDINATES DISPLAYED:
+	- Ontop of the minimap the coordinates of the player or shown, these are shown regardless of the size of the minimap.
+MINIMAP TOPOGRAPHY:
+	- The minimap checks the height of the top layer of the world and changes the hue of the colours based on this height. This gives the minimap a topographic look. 
+BEDROCK: 
+	- Bedrock is the bottom layer of the map that is filled with indestructible black rock. The depth is controlled via a static parameter which can be set to 0 to remove bedrock from gameplay.
+WATER: 
+	- Water stays at a designated level of the map. If the player is hit by water, they will die. 
+	- Water flows consistently to fill in empty space around it. To get past flowing water, try shooting it then running past before it fills in again.
+EXPLOSION: 
+	- A small explosion occurs if a missile collides with a cube. This explosion is represented by red ‘fire’ cubes, these cubes will kill the player. 
+	- The assignment guidelines asked for a pyramid like explosion, I found this unrealistic and unsymmetrical. Instead I introduced the option for players to toggle between a more spherical explosion
+PLAYER_DEATH: 
+	- Although not explicitly required for the assignment, I included a minor death function that counts number of deaths and restarts the player, if they touch fire, water or fall out of the bottom of the map.
+RADIO: 
+	- Information such as velocity, angle, shots and deaths are recorded on the players radio, the blips show the passing time since last transmission. 
+
+RAPID-FIRE_MODE (slight bugs): 
+	- By turning on rapid-fire mode, projectile motion is disabled and the player can now shoot which-ever direction they are facing. It’s quite fun! 
+
+********************
+* III. COMPILATION *
+********************
+1. Navigate to the ndurish_a2 directory in Terminal (Mac/Linux) or Command Line (Windows)
+2. Type 'make' then hit 'enter'
+3. The screen should output a gcc compiler statement, if no errors are returned then compilation was successful. The executable file a1 can be found in your current directory
+4. Type './a1' to run the game (please size windows so that the Terminal is still viewable)
+
+					
+**************************************
+* IV. KNOWN BUGS & FUTURE EXTENSIONS *
+**************************************
+
+* KNOWN BUGS *
+These limitation’s were not significant enough to fix in this iteration, but will be fixed in a future update;
+
+	NEARSIGHTED BOTS
+		- Get within a couple squares of a bot and it'll start to go a little cross-eyed, meh, don't get so close to a killing machine.
+
+	BOT WALL BOUNCES
+		-My project requirements asked the bots to bounce the 'same direction they hit from'. Later I may change to a more realistic physics
+	
+	BOT WANDER BOTTLENECKING
+		- If the water creates a small opening into a peninsula, bots may get stuck due to the wall-bounce implementation.
+
+	PORT-REFUSAL
+		- If a server or client is run too many times consuecutively or improperly closed, it won't give the port enough time to empty; called Overloading. Give the program some time between runs. Also not closing the game properly causes port errors, and the server will need to be restarted. 
+
+	EXTRA DEATHS FROM FALLING FROM A DISTANCE INTO WATER:
+		- If the player falls from over 1 block into water without walking then they will die multiple times (I call it super-drowning and considered calling it a feature instead of a bug ;) ). 
+
+	DIGGING: 
+		- The player is only able to dig out cubes directly beside or below the player, not diagonally. This makes it quite easy for the player to get stuck
+
+	RAPIDFIRE_MODE: 
+		-The player is only able to shoot if they are facing directly forward, I may also like to allow the player to press a button to toggle rapidfire in-game.
+
+
+* FUTURE EXTENSIONS *
+These extensions are ideas I hoped to implement but didn't have the time, hopefully you'll see them in a future update;
+
+	-BREAK UP FUNCTIONS INTO MORE FILES
+
+	-EXECUTABLE ICON
+
+	-PUT SOME HUB INFO ON LARGER MAP
+
+	-CHANGE VELOCITY AND ANGLE DYNAMICALLY
+
+	-TEXTURES

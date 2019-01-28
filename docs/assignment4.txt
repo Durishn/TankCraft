@@ -1,0 +1,143 @@
+-  Assignment 4 - Add Moving Objects, Jumping, and No Networking
+-  -------------------------------------------------------------
+-  Due date - March 16, 2015.
+-  
+-  
+-  The following features are added for assignment 3.
+-  -Implement MOBS (moving objects)  which wander around and will shoot at 
+-    the player. 
+-  -Allow the player to jump up two cubes in height so they can climb higher
+-   objects.
+-  -Allow the game to be run without networking.
+-  
+-  There are a few small changes to the starting code for assignment 4.
+-  Move you code from the previous assignments to the new a1.c and use
+-  the new graphics.c and visible.c to compile the code for assignment 4.
+-  
+-  If you do not complete parts of the assignment then explain what does
+-  and does not work in a readme.txt file.
+-  
+-  
+-  1. Add Moving Objects (MOBS)
+-  ----------------------------
+-  Mobs are moving objects. In this case they will be used to creating an
+-  opponent which will wander around in the game and fight the player.
+-  
+-  The mob should move around the world until it sees the player.
+-  Once the mob sights the player it should attempt to shoot the player.
+-  It should wait 0.5 a second and then fire. The shot from the mob should
+-  have the same movement characteristics as the player's shots.
+-  If the shot lands in the same square as the player then the program
+-  should print a message indicating a direct hit. If the shot lands
+-  in a square which is up to two squares away from the player then 
+-  player then the program should print a message indicating that it
+-  was an indirect hit. Print similar messages when the mob is directly
+-  or indirectly shot by the player.
+-  
+-  Use a finite state machine to control the mob. The mob should start in
+-  a search state. When it sees the player it should change to a 
+-  fight state.  If the mob in in the fight state and the player is not shooting
+-  at it then the mob should shoot the player. If the player has launched a shot
+-  then the mob should try to evade the player's shot by moving.
+-  
+-  The mobs path should cover most of the game worlds in the search state.
+-  ou can choose how you wish the move to navigate the world.  It should not
+-  stay in a small area of the world. It should not get stuck in a corner. 
+-  Some possible choices for navigation are either to follow predefined
+-  paths or to move to random locations in the world. The mob should move
+-  along the ground and should not fly in the air.
+-  
+-  If the mob loses site of the player for three seconds or more then it should
+-  return to a search state. This is true for all cases when the mob does
+-  not see the player. 
+-  
+-  The mob can shoot once every second.
+-  
+-  The finite state machine for the mob is below. It shows the state
+-  which the mob will switch to given the inputs and the current state.
+-  
+-  				     Current State
+-   Inputs                |   search      fight      shoot      move
+-  ------------------------------------------------------------------
+-  don't see player    |                search
+-  see player            |   fight       
+-  player shooting     |                  move     fight                
+-  player not shooting|                  shoot                  fight
+-  
+-  
+-                                                       ------------------------------
+-                                                       |                                     |
+-                                                       |    player not shooting     |
+-       don't see                                   |   -----------------------> shoot
+-       -----                                          |  |
+-       |    |                                          |  |
+-       |    |                                          |  |
+-       V   |          see player                 V  |     player shooting
+-       search --------------------------> fight ---------------------> move
+-         ^                                             |  ^                               |
+-         |                                              |  |                                |
+-         |                                              |   -------------------------
+-         -------------------------------------
+-          don't see player for 3 seconds
+-  
+-  
+-  You will need to keep a time counter indicating how long it was since
+-  the mob last saw the player. 
+-  
+-  The ability of the mob to see the player is determined by straight line
+-  visibility testing. Calculate a straight line between the mob and the
+-  player. If there are only empty squares between the mob and the player
+-  then the mob can see the player. There are several methods which can be used
+-  calculate the straight line path. Some are more complicated than others. 
+-  
+-  The mob can only see players which are within 50 squares of their
+-  current location. The mob can only see the player if it is facing
+-  them. They field of view of the mob is 180 degree (everything in
+-  front of them). The mob cannot see anything that is in the 180 degrees
+-  behind them.
+-  
+-  Mobs can move smoothly between adjacent x,y,z locations or they
+-  can move in integer steps. The important thing is that they always move
+-  to adjacent locations. They cannot jump between non-adjacent positions
+-  of the world.
+-  
+-  Use the Player functions (e.g. createPlayer(), setPlayerPosition(), ...)
+-  to draw the enemy. Ensure that the enemy is facing in the direction it
+-  is moving or looking.
+-  
+-  Mobs should not move into the same location as the player.
+-  
+-  
+-  
+-  
+-  2. Jumping Movement
+-  -------------------
+-  When the player pushes the space bar they should be able to jump a
+-  height of two blocks in the world. This should be implemented to allow
+-  the player to jump onto a block which is higher than they can normally
+-  climb.
+-  
+-  Ensure that it is relatively easy for the player to jump onto
+-  a surface which is two blocks tall. Simply jumping a height of two blocks
+-  and not being able to land on a surface at that height is not sufficient.
+-  
+-  Use the space bar to perform the jump.
+-  
+-  Implement a timer so the player cannot jump more than once every five
+-  seconds. If they try to jump before five seconds has passed then nothing
+-  should happen.
+-  
+-  
+-  
+-  3. Execute without networking
+-  -----------------------------
+-  
+-  If the player starts one instance of the program without using the -client
+-  or -server flag then the program should run in a single window without any
+-  networking.  All operations besides the networking should execute normally. 
+-  
+-  If the netClient and netServer flags are both zero then the game should
+-  run without using he networking.
+  
+  
+

@@ -1,0 +1,155 @@
+- Assignment 2 - More Collision, Timing, Projectiles
+- --------------------------------------------------
+- Due. February 2, 2015 - The extension to assignment 2 is to Feb. 9. There
+- will be no other extensions to the deadline.
+- 
+- There are three parts to this assignment. They add onto assignment 1. 
+- 
+- The files graphics.c and a1.c have been modified from assignment 1.
+- The mouse() function has been moved into a1.c so you can use it for this
+- assignment. You will need to copy your code from assignment 1 to the new a1.c file.
+- 
+- The readme.txt has also been modified to include more information for this
+- assignment. The instructions appear after the assignment 1 instructions.
+- 
+- 
+- 1. More Collision Detection
+- ----------------------------
+- Add collision detection so the viewpoint cannot pass into a space
+- outside of the world array. The world space is 100x50x100 units.
+- If the viewpoint reaches the edge of the world space it should
+- stop moving so it does not leave the world space.
+- 
+- 
+- 2. Timing
+- ---------
+- The update() function will be called by OpenGL. This is used for
+- the animations. If the updates to the screen are allowed to run
+- freely then the speed of the animation will depend on how often
+- the function is called. Faster computers will have faster animations.
+- 
+- To avoid this you need to use real time to schedule updates to the
+- animated objects. Use real time to update the animations on a
+- fixed time schedule.  You should check the current time with each
+- call to update() and only change the animation if enough time has
+- passed since the previous change. Do not use sleep() for this operation.
+- 
+- 
+- 3. Launching a Projectile
+- -------------------------
+- Launch a projectile from the viewpoint. It should travel in the direction
+- which the viewpoint was facing when it is launched. The player should be
+- able to control the angle and velocity of the projectile when it is
+- launched. When the projectile strikes a cube in the world (colour != 0)
+- the projectile should be removed from the game. The cube it strikes and those
+- surrounding it should also be removed.
+- 
+- Research the trajectory of a projectile calculations to determine the path of
+- the shot. You can use any calculation you wish as long as it creates a
+- smooth arcing path. The shot should increase to a maximum height and
+- then fall to the ground. The velocity of the object does not need to change
+- after it has been fired. Use the angle and initial velocity to determine
+- the path the shot will follow.  The path does not need to be physically
+- correct but it must meet all of the listed criteria.
+- 
+- It should be possible to launch a projectile across most of the world space
+- using the correct angle and velocity. As the angle increases the distance
+- which the projectile travels in the y direction should increase but the
+- distance in the x and z directions should decrease. Examine images of
+- real projectile trajectories to get an idea of how the path should
+- look. Choose reasonable parameters so the system is not difficult to control.
+- 
+- Use the full range of values for angle and trajectory. The user
+- should not be required to keep the angle and velocity within a very small
+- range in order to keep the projectile within the world space.
+- 
+- You will likely want to use the getViewPosition() and getViewOrientation()
+- functions to find the starting location of the viewpoint and the
+- angle that the viewpoint is facing. It is a good idea to examine the
+- values these functions return, particularly the orientation, to understand
+- the values they return.
+- 
+- The mouse() function has been added to a1.c. It allows you to respond to
+- button press and release events on the mouse. Remove the existing printf's
+- from the mouse() function in your final submission. They are there to help
+- understand the function and are not meant to be part of the final system.
+- Launch the projectile when the left mouse button is pressed. Use the
+- right mouse button to determine the angle and velocity of the projectile.
+- When the button is pressed the user can drag the mouse up and down or left
+- and right. These mouse motions will mean:
+- 	-drag left means decrease the velocity
+- 	-drag right means decrease the velocity
+- 	-drag up means increase the angle
+- 	-drag down means decrease the angle
+- Add your own messages to the mouse function which print out the angle and
+- trajectory to the text window when the right mouse button is released.
+- Print out the angle in degrees with 0 degrees pointing level to the xz
+- plane of the world (horizontal) and 90 degrees pointing up (vertical).
+- Print the velocity in the range from 0.0 to 1.0 where 0.0 is no velocity
+- and 1.0 is maximum velocity.
+- 
+- If a projectile impacts the side of the world space then it should be removed
+- (when 0>x>99 or 0>z>99). If a projectile travels above the maximum height of the
+- world (y>49) then it does not need to be removed unless it also moves outside
+- the allowable range for x and z. In other words the object can go up a large
+- distance but it cannot move outside the left, right, forward, and backward
+- range.
+- 
+- When a projectile strikes a cube then the cubes surrounding the point of impact
+- should be removed in the shape of an pyramid pointing down. It is three
+- levels deep and each level down is smaller than the one above. The size
+- of the removed squares is:
+- 	-5x5 squares on the top level
+- 	-3x3 squares on the second level
+- 	-1 square on the third level
+- 
+- From the side it would look like this:
+- 
+-              XXXXX    5x5 level  (top)
+-               XXX     3x3 level
+-                X      1 cube  (bottom)
+- 
+- Use the mob functions to create and control the projectile. There are examples
+- of these functions in a1.c.
+- 
+- The initial window size is 1024x768 pixels.
+- 
+- 
+- Coding Practices
+- ----------------
+- Write the code using standard stylistic practices. Use functions, 
+- reasonable variable names, and consistent indentation.
+- If the code is difficult for the TA to understand then you
+- will lose marks.
+- 
+- As usual, keep backups of your work using source control software.
+- 
+- 
+- Starting Code
+- -------------
+- The starting code is available on the Courselink site.
+- You can untar the file using tar xf filename.
+- All of the changes to the code can be made in the a1.c file.
+- 
+- Note that the graphics code may be modified for later assignments. If you
+- make changes to the graphics code (in graphics.c or visible.c) then you
+- may have to recode the changes for a later assignment.
+-   
+- 
+- Submitting the Assignment
+- -------------------------
+- Submit the assignment using Courselink. Submit only the source code
+- and the makefile. Bundle the code in a tar file.
+- 
+- Include a makefile that will compile the executable. Name the executable a1.
+-  
+- The TA will unpack your code and type "make". They will then try to
+- run an executable named "./a1".  If the make command or executing a1
+- does not work then you will lose a substantial number of marks.
+- 
+- It is always a good idea to unpack and test the file you are submitting
+- to be sure that what you submit actually compiles. 
+-  
+-  
+-  
+

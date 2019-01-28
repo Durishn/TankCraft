@@ -1,0 +1,84 @@
+
+Assignment 3 - Adding Networking and Mapping to the Game
+--------------------------------------------------------
+Due. March 2, 2015
+
+NOTE: There have been changes made to graphics.c and a1.c. You will need
+to copy your code from the previous assignments to the new a1.c.
+ 
+
+1. Displaying the Shooting Angle Using a Second Networked Display
+-----------------------------------------------------------------
+Add networking to the code from the previous assignments that
+allows multiple copies of the application to run and share the
+same game world. This will involve synchronizing the displays of
+multiple clients so the users will share the same game world.
+
+Synchronize the following elements between the clients:
+-player position and orientation
+-the colour and location of blocks in the world, including when blocks
+ are removed during game play
+-the location of a shot once the player fires one
+You will add opponent position and orientation in the next assignment.
+The client program will display the player's view of the world.
+The server program will display the view using the angle of the gun.
+Both displays will have the same world ViewPosition but they will
+each have a different ViewOrientation. The setViewOrientation()
+function will allow you to set the viewpoint to match the angle
+of the barrel. It is described in the readme.txt.
+
+Updates should only include changes in the game world. They should
+not include all of the game world information for every transmission.
+You will need to encode the updates so that the receiver understands
+what information is being sent to it.
+
+You can choose how to divide the communications and control amongst
+the different instances of the program. One possibility is to 
+make one of the instances of the program act as a server which will
+dictate operations to other instances (clients) of the program.
+This would include synchronizing the animated objects such as the players,
+monsters, and shots.  In this case the clients would do little more than
+update the display based on messages from the server.
+
+Do not open and close the socket for each transmission. The sockets
+should be opened once at the start of the program and closed before
+the program exits.
+
+Add -client and -server flags to the program which indicate the
+program is running in either client or server mode. 
+The program will be tested on a single machine using localhost as
+the address. It is trivial to extend this to work with IP addresses
+but to make testing easier the program will be run on a single machine. 
+Use stream transmissions (not datagrams).
+ 
+Sample networking code is provided on the Courselink site.
+
+
+2. Displaying a Two Dimensional World Map
+-----------------------------------------
+
+Use the draw2D() function in a1.c to draw two dimensional maps on the
+screen. The map should currently show the boundary of the world and
+the player's current location. The maps should display the x and z
+coordinates of the world. They do not need to show elevation in
+the y axis.
+
+The int displayMap variable will be used to indicate what type of map will
+be displayed. When:
+	displayMap == 0,  no map is displayed
+	displayMap == 1,  a small world map in the upper right corner is drawn
+	displayMap == 2,  a large world map is displayed in the middle of the
+	                  screen is drawn
+The value of displayMap is cycled through using the m key.
+
+You can use the draw2D*() functions to drawn lines, boxes, and triangles.
+The set2Dcolour() function lets you set the colour of the shapes.
+These are described in the readme.txt file.
+
+Draw lines to indicate the boundary of the map and draw a square to
+indicate the players location on the map. When shot is fired it should
+be drawn on the map while it exists.
+
+You should use the screenWidth and screenHeight variables to
+scale the size of the maps when the window size is changed.
+
